@@ -1,3 +1,5 @@
+setupTree();
+
 let xvalue;
 let yvalue;
 let equations = [];
