@@ -4,14 +4,14 @@ let xvalue;
 let yvalue;
 let equations = [];
 
-id("canvas").style.width = `calc(${window.innerHeight / 2}px)`;
-id("canvas").style.height = `calc(${window.innerHeight / 2}px)`;
-id("screenSize").value = window.innerHeight / 2;
+idTree.canvas.style.width = `calc(${window.innerHeight / 2}px)`;
+idTree.canvas.style.height = `calc(${window.innerHeight / 2}px)`;
+idTree.screenSize.value = window.innerHeight / 2;
 
 let screen = {
-    size: id("screenSize").value,
-    windowX: id("windowX").value,
-    windowY: id("windowY").value
+    size: idTree.screenSize.value.value,
+    windowX: idTree.windowX.value.value,
+    windowY: idTree.windowY.value
 }
 
 let points = {}
@@ -21,23 +21,23 @@ let j;
 
 function regenerateGrid() {
     for (let i = 0; i <= screen.size / 2; i += (screen.size / 2) / screen.windowX) {
-        id("canvas").innerHTML += `<path d="M${i},${-screen.size / 2} L${i},${screen.size / 2}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${screen.size / 2}, ${screen.size / 2})" />`;
+        idTree.canvas.innerHTML += `<path d="M${i},${-screen.size / 2} L${i},${screen.size / 2}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${screen.size / 2}, ${screen.size / 2})" />`;
     }
 
     for (let i = 0; i >= -screen.size / 2; i -= (screen.size / 2) / screen.windowX) {
-        id("canvas").innerHTML += `<path d="M${i},${-screen.size / 2} L${i},${screen.size / 2}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${screen.size / 2}, ${screen.size / 2})" />`;
+        idTree.canvas.innerHTML += `<path d="M${i},${-screen.size / 2} L${i},${screen.size / 2}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${screen.size / 2}, ${screen.size / 2})" />`;
     }
 
     for (let i = 0; i <= screen.size / 2; i += (screen.size / 2) / screen.windowY) {
-        id("canvas").innerHTML += `<path d="M${-screen.size / 2},${i} L${screen.size / 2},${i}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${screen.size / 2}, ${screen.size / 2})" />`;
+        idTree.canvas.innerHTML += `<path d="M${-screen.size / 2},${i} L${screen.size / 2},${i}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${screen.size / 2}, ${screen.size / 2})" />`;
     }
 
     for (let i = 0; i >= -screen.size / 2; i -= (screen.size / 2) / screen.windowY) {
-        id("canvas").innerHTML += `<path d="M${-screen.size / 2},${i} L${screen.size / 2},${i}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${screen.size / 2}, ${screen.size / 2})" />`;
+        idTree.canvas.innerHTML += `<path d="M${-screen.size / 2},${i} L${screen.size / 2},${i}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${screen.size / 2}, ${screen.size / 2})" />`;
     }
 
-    id("canvas").innerHTML += `<path d="M${-screen.size / 2},0 L${screen.size / 2},0" style="stroke: White; fill: none; stroke-width: 1;" transform="translate(${screen.size / 2}, ${screen.size / 2})" />`;
-    id("canvas").innerHTML += `<path d="M0,${screen.size / 2} L0,${-screen.size / 2}" style="stroke: White; fill: none; stroke-width: 1;" transform="translate(${screen.size / 2}, ${screen.size / 2})" />`;
+    idTree.canvas.innerHTML += `<path d="M${-screen.size / 2},0 L${screen.size / 2},0" style="stroke: White; fill: none; stroke-width: 1;" transform="translate(${screen.size / 2}, ${screen.size / 2})" />`;
+    idTree.canvas.innerHTML += `<path d="M0,${screen.size / 2} L0,${-screen.size / 2}" style="stroke: White; fill: none; stroke-width: 1;" transform="translate(${screen.size / 2}, ${screen.size / 2})" />`;
 }
 
 function evaluateYValue(value) {
@@ -52,21 +52,21 @@ oninput = function () {
     d = ``;
 
     screen = {
-        size: id("screenSize").value,
-        windowX: id("windowX").value,
-        windowY: id("windowY").value
+        size: idTree.screenSize.value.value,
+        windowX: idTree.windowX.value.value,
+        windowY: idTree.windowY.value
     }
 
     if (screen.size == "") {
         return;
     }
 
-    id("canvas").style.width = id("screenSize").value + "px";
-    id("canvas").style.height = id("screenSize").value + "px";
+    idTree.canvas.style.width = idTree.screenSize.value + "px";
+    idTree.canvas.style.height = idTree.screenSize.value + "px";
 
-    equations = id("input").value.split("\n");
+    equations = idTree.input.value.split("\n");
 
-    id("canvas").innerHTML = "";
+    idTree.canvas.innerHTML = "";
 
     if (screen.windowX == "") {
         return;
@@ -120,6 +120,6 @@ oninput = function () {
             }
         }
 
-        id("canvas").innerHTML = id("canvas").innerHTML + `<path id="function" d="${d}" style="stroke: White; fill: none; stroke-width: 3;" transform="translate(${screen.size / 2}, ${screen.size / 2})"/>`;
+        idTree.canvas.innerHTML += `<path id="function" d="${d}" style="stroke: White; fill: none; stroke-width: 3;" transform="translate(${screen.size / 2}, ${screen.size / 2})"/>`;
     }
 }
