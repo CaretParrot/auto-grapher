@@ -3,6 +3,10 @@ setupTree();
 let xvalue;
 let yvalue;
 let equations = [];
+let points = {};
+let output;
+let d;
+let j;
 
 idTree.canvas.style.width = `calc(${window.innerHeight / 2}px)`;
 idTree.canvas.style.height = `calc(${window.innerHeight / 2}px)`;
@@ -13,11 +17,6 @@ let screen = {
     windowX: idTree.windowX.value,
     windowY: idTree.windowY.value
 }
-
-let points = {}
-let output;
-let d;
-let j;
 
 function regenerateGrid() {
     for (let i = 0; i <= screen.size / 2; i += (screen.size / 2) / screen.windowX) {
@@ -57,7 +56,7 @@ oninput = function () {
         windowY: idTree.windowY.value
     }
 
-    if (screen.size == "") {
+    if (screen.size === "") {
         return;
     }
 
@@ -68,11 +67,11 @@ oninput = function () {
 
     idTree.canvas.innerHTML = "";
 
-    if (screen.windowX == "") {
+    if (screen.windowX === "") {
         return;
     }
 
-    if (screen.windowY == "") {
+    if (screen.windowY === "") {
         return;
     }
 
@@ -81,7 +80,7 @@ oninput = function () {
     for (j = 0; j < equations.length; j++) {
         equations[j] = equations[j].replace(/ /g, "");
 
-        if (equations[j] == "") {
+        if (equations[j] === "") {
             break;
         }
 
