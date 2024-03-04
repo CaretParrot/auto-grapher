@@ -52,8 +52,8 @@ oninput = function () {
     d = ``;
 
     screen = {
-        size: idTree.screenSize.value.value,
-        windowX: idTree.windowX.value.value,
+        size: idTree.screenSize.value,
+        windowX: idTree.windowX.value,
         windowY: idTree.windowY.value
     }
 
