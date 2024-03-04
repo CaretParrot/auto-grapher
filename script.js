@@ -36,8 +36,8 @@ function regenerateGrid() {
         idTree.canvas.innerHTML += `<path d="M${-screen.size / 2},${i} L${screen.size / 2},${i}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${screen.size / 2}, ${screen.size / 2})" />`;
     }
 
-    idTree.canvas.innerHTML += `<path d="M${-screen.size / 2},0 L${screen.size / 2},0" style="stroke: White; fill: none; stroke-width: 1;" transform="translate(${screen.size / 2}, ${screen.size / 2})" />`;
-    idTree.canvas.innerHTML += `<path d="M0,${screen.size / 2} L0,${-screen.size / 2}" style="stroke: White; fill: none; stroke-width: 1;" transform="translate(${screen.size / 2}, ${screen.size / 2})" />`;
+    idTree.canvas.innerHTML = idTree.canvas.innerHTML + `<path d="M${-screen.size / 2},0 L${screen.size / 2},0" style="stroke: White; fill: none; stroke-width: 1;" transform="translate(${screen.size / 2}, ${screen.size / 2})" />`;
+    idTree.canvas.innerHTML = idTree.canvas.innerHTML + `<path d="M0,${screen.size / 2} L0,${-screen.size / 2}" style="stroke: White; fill: none; stroke-width: 1;" transform="translate(${screen.size / 2}, ${screen.size / 2})" />`;
 }
 
 function evaluateYValue(value) {
