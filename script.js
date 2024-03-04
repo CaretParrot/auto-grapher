@@ -115,7 +115,7 @@ oninput = function () {
                     d += `M${(screen.size / (screen.windowX * 2)) * xvalue},${(screen.size / (screen.windowY * 2)) * yvalue} \n`;
                 } else {
                     d += `L${(screen.size / (screen.windowX * 2)) * xvalue},${(screen.size / (screen.windowY * 2)) * yvalue} \n`;
-                    points.toString(j)["xvalue"] = -yvalue;
+                    points.toString(j)[xvalue] = -yvalue;
                 }
             }
         }
