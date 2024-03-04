@@ -41,7 +41,7 @@ function regenerateGrid() {
 }
 
 function evaluateYValue(value) {
-    if (!value.isNaN()) {
+    if (!Number.isNan(value)) {
         return -Function("return " + equations[j].replace(/x/g, `(${value})`))();
     }
 }
@@ -92,8 +92,8 @@ oninput = function () {
         xvalue = -screen.windowX;
         yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
 
-        if (abs(yvalue) === Infinity || yvalue.isNaN()) {
-            while (abs(yvalue) === Infinity || yvalue.isNaN()) {
+        if (abs(yvalue) === Infinity || Number.isNan(yvalue)) {
+            while (abs(yvalue) === Infinity || Number.isNan(yvalue)) {
                 xvalue += 0.01;
                 yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
             }
@@ -106,8 +106,8 @@ oninput = function () {
             yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
 
             if (equations[j].includes("x")) {
-                if (yvalue === -Infinity || yvalue === Infinity || yvalue.isNaN()) {
-                    while (abs(yvalue) === Infinity || yvalue.isNaN()) {
+                if (yvalue === -Infinity || yvalue === Infinity || Number.isNan(yvalue)) {
+                    while (abs(yvalue) === Infinity || Number.isNan(yvalue)) {
                         xvalue += 0.01;
                         yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
                     }
