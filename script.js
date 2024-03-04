@@ -9,8 +9,8 @@ idTree.canvas.style.height = `calc(${window.innerHeight / 2}px)`;
 idTree.screenSize.value = window.innerHeight / 2;
 
 let screen = {
-    size: idTree.screenSize.value.value,
-    windowX: idTree.windowX.value.value,
+    size: idTree.screenSize.value,
+    windowX: idTree.windowX.value,
     windowY: idTree.windowY.value
 }
 
