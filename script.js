@@ -40,7 +40,7 @@ function regenerateGrid() {
 }
 
 function evaluateYValue(value) {
-    if (!Number.isNan(+value)) {
+    if (!isNan(value)) {
         return -Function("return " + equations[j].replace(/x/g, `(${value})`))();
     }
 }
@@ -51,9 +51,9 @@ oninput = function () {
     d = ``;
 
     screen = {
-        size: idTree.screenSize.value,
-        windowX: idTree.windowX.value,
-        windowY: idTree.windowY.value
+        size: +idTree.screenSize.value,
+        windowX: +idTree.windowX.value,
+        windowY: +idTree.windowY.value
     }
 
     if (screen.size === "") {
