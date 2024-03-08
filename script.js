@@ -41,7 +41,7 @@ function regenerateGrid() {
 
 function evaluateYValue(value) {
     console.log(value);
-    if (!isNan(value)) {
+    if (!isNaN(value)) {
         return -Function("return " + equations[j].replace(/x/g, `(${value})`))();
     }
 }
