@@ -40,7 +40,7 @@ function regenerateGrid() {
 }
 
 function evaluateYValue(value) {
-    if (!Number.isNan(value)) {
+    if (!Number.isNan(+value)) {
         return -Function("return " + equations[j].replace(/x/g, `(${value})`))();
     }
 }
