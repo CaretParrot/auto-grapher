@@ -92,7 +92,7 @@ oninput = function () {
         yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
 
         if (abs(yvalue) === Infinity || isNaN(yvalue)) {
-            while (abs(yvalue) === Infinity || isNaN(yvalue)) {
+            while (abs(yvalue) === Infinity || isNaN(yvalue) || xvalue <= 250) {
                 xvalue += 0.01;
                 yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
             }
@@ -106,7 +106,7 @@ oninput = function () {
 
             if (equations[j].includes("x")) {
                 if (yvalue === -Infinity || yvalue === Infinity || isNaN(yvalue)) {
-                    while (abs(yvalue) === Infinity || isNaN(yvalue)) {
+                    while (abs(yvalue) === Infinity || isNaN(yvalue) || xvalue <= 250) {
                         xvalue += 0.01;
                         yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
                     }
