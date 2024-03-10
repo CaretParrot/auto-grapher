@@ -53,7 +53,7 @@ oninput = function () {
 
     graphWindow = {
         size: +idTree.screenSize.value,
-        edge: this.size / 2,
+        edge: +idTree.screenSize.value / 2,
         windowX: +idTree.windowX.value,
         windowY: +idTree.windowY.value
     }
@@ -93,8 +93,8 @@ oninput = function () {
         xvalue = -graphWindow.windowX;
         yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
 
-        if (abs(yvalue) === Infinity || isNaN(yvalue)) {
-            while (abs(yvalue) === Infinity || isNaN(yvalue)) {
+        if (!isFinite(yvalue)) {
+            while (isFinite(yvalue) && yvalue <= graphWindow.WindowX) {
                 xvalue += 0.01;
                 yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
                 if (xvalue > graphWindow.WindowX) {
@@ -110,13 +110,10 @@ oninput = function () {
             yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
 
             if (equations[j].includes("x")) {
-                if (yvalue === -Infinity || yvalue === Infinity || isNaN(yvalue)) {
-                    while (abs(yvalue) === Infinity || isNaN(yvalue)) {
+                if (!isFinite(yvalue)) {
+                    while (isFinite(yvalue) && yvalue <= graphWindow.WindowX) {
                         xvalue += 0.01;
                         yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
-                        if (xvalue > graphWindow.WindowX) {
-                            break;
-                        }
                     }
 
                     d += `M${(graphWindow.size / (graphWindow.windowX * 2)) * xvalue},${(graphWindow.size / (graphWindow.windowY * 2)) * yvalue} \n`;
