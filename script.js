@@ -97,9 +97,6 @@ oninput = function () {
             while (isFinite(yvalue) && yvalue <= graphWindow.WindowX) {
                 xvalue += 0.01;
                 yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
-                if (xvalue > graphWindow.WindowX) {
-                    break;
-                }
             }
         }
 
@@ -114,6 +111,7 @@ oninput = function () {
                     while (isFinite(yvalue) && yvalue <= graphWindow.WindowX) {
                         xvalue += 0.01;
                         yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
+                        console.log();
                     }
 
                     d += `M${(graphWindow.size / (graphWindow.windowX * 2)) * xvalue},${(graphWindow.size / (graphWindow.windowY * 2)) * yvalue} \n`;
