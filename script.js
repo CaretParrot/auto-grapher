@@ -14,7 +14,7 @@ idTree.screenSize.value = window.innerHeight / 2;
 
 let graphWindow = {
     size: +idTree.screenSize.value,
-    edge: +(graphWindow.size / 2),
+    edge: +idTree.screenSize.value / 2,
     windowX: +idTree.windowX.value,
     windowY: +idTree.windowY.value
 }
