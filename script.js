@@ -105,7 +105,6 @@ oninput = function () {
         for (xvalue = -graphWindow.windowX; xvalue <= graphWindow.windowX; xvalue += 0.01) {
             xvalue = Math.round(xvalue * 100) / 100;
             yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
-            console.log(isFinite(yvalue));
 
             if (equations[j].includes("x")) {
                 if (!isFinite(yvalue)) {
@@ -114,8 +113,10 @@ oninput = function () {
                         yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
                     }
 
+                    console.log(d);
                     d += `M${(graphWindow.size / (graphWindow.windowX * 2)) * xvalue},${(graphWindow.size / (graphWindow.windowY * 2)) * yvalue} \n`;
                 } else {
+                    console.log(d);
                     d += `L${(graphWindow.size / (graphWindow.windowX * 2)) * xvalue},${(graphWindow.size / (graphWindow.windowY * 2)) * yvalue} \n`;
                     points.toString(j)[xvalue] = yvalue;
                 }
