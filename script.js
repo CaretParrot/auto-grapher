@@ -111,12 +111,10 @@ oninput = function () {
                     while (!isFinite(yvalue) && xvalue <= graphWindow.WindowX) {
                         xvalue += 0.02;
                         yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
+                        console.log("Testing");
                     }
-
-                    console.log(d);
                     d += `M${(graphWindow.size / (graphWindow.windowX * 2)) * xvalue},${(graphWindow.size / (graphWindow.windowY * 2)) * yvalue} \n`;
                 } else {
-                    console.log(d);
                     d += `L${(graphWindow.size / (graphWindow.windowX * 2)) * xvalue},${(graphWindow.size / (graphWindow.windowY * 2)) * yvalue} \n`;
                     points.toString(j)[xvalue] = yvalue;
                 }
