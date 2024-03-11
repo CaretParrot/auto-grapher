@@ -45,15 +45,15 @@ regenerateGrid();
 oninput = function () {
     d = ``;
 
+    if (idTree.screenSize.value === "" || idTree.windowX.value === "" || graphWindow.windowY === "") {
+        return;
+    }
+
     graphWindow = {
         size: +idTree.screenSize.value,
         edge: +idTree.screenSize.value / 2,
         windowX: +idTree.windowX.value,
         windowY: +idTree.windowY.value
-    }
-
-    if (graphWindow.size === "") {
-        return;
     }
 
     idTree.canvas.style.width = graphWindow.size + "px";
@@ -62,14 +62,6 @@ oninput = function () {
     equations = idTree.input.value.split("\n");
 
     idTree.canvas.innerHTML = "";
-
-    if (graphWindow.windowX === "") {
-        return;
-    }
-
-    if (graphWindow.windowY === "") {
-        return;
-    }
 
     regenerateGrid();
 
