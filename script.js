@@ -45,7 +45,7 @@ regenerateGrid();
 oninput = function () {
     d = ``;
 
-    if (isNaN(idTree.screenSize.value) || isNaN(idTree.windowX.value) || isNaN(idTree.windowY.value)) {
+    if (idTree.screenSize.value === "" || idTree.windowX.value === "" || idTree.windowY.value === "") {
         return;
     }
 
