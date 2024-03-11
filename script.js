@@ -94,7 +94,7 @@ oninput = function () {
         yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
 
         if (!isFinite(yvalue)) {
-            while (!isFinite(yvalue) && xvalue <= graphWindow.WindowX) {
+            while (!isFinite(yvalue) && xvalue <= graphWindow.windowX) {
                 xvalue += 0.01;
                 yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
             }
@@ -108,7 +108,7 @@ oninput = function () {
 
             if (equations[j].includes("x")) {
                 if (!isFinite(yvalue)) {
-                    while (!isFinite(yvalue) && xvalue <= graphWindow.WindowX) {
+                    while (!isFinite(yvalue) && xvalue <= graphWindow.windowX) {
                         xvalue += 0.02;
                         yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
                         console.log("Testing");
