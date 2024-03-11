@@ -109,7 +109,7 @@ oninput = function () {
             if (equations[j].includes("x")) {
                 if (!isFinite(yvalue)) {
                     while (!isFinite(yvalue) && xvalue <= graphWindow.WindowX) {
-                        xvalue += 0.01;
+                        xvalue += 0.02;
                         yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
                     }
 
