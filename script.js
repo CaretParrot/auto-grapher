@@ -45,7 +45,7 @@ regenerateGrid();
 oninput = function () {
     d = ``;
 
-    if (!isFinite(idTree.screenSize.value) || !isFinite(idTree.windowX.value) || !isFinite(graphWindow.windowY)) {
+    if (!isFinite(+idTree.screenSize.value) || !isFinite(+idTree.windowX.value) || !isFinite(+graphWindow.windowY)) {
         return;
     }
 
