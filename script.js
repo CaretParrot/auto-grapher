@@ -3,7 +3,7 @@ setupTree();
 let xvalue;
 let yvalue;
 let equations = [];
-let points = {};
+let points = [];
 let output;
 let d;
 let j;
@@ -107,7 +107,7 @@ oninput = function () {
                     d += `M${(graphWindow.size / (graphWindow.windowX * 2)) * xvalue},${(graphWindow.size / (graphWindow.windowY * 2)) * yvalue} \n`;
                 } else {
                     d += `L${(graphWindow.size / (graphWindow.windowX * 2)) * xvalue},${(graphWindow.size / (graphWindow.windowY * 2)) * yvalue} \n`;
-                    points.toString(j)[xvalue] = yvalue;
+                    points[j]["xvalue"] = yvalue;
                 }
             }
         }
