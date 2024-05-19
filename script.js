@@ -50,7 +50,7 @@ regenerateGrid();
 
 oninput = function () {
     d = ``;
-
+        
     if (idTree.screenSize.value == "" || idTree.windowX.value == "" || idTree.windowY.value == "") {
         return;
     }
@@ -66,6 +66,7 @@ oninput = function () {
     idTree.canvas.style.height = graphWindow.size + "px";
 
     equations = idTree.input.value.split("\n");
+    idTree.equation.max = equations.length - 1;
 
     idTree.canvas.innerHTML = "";
 
