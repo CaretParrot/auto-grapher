@@ -93,11 +93,11 @@ oninput = function () {
         }
 
         d += `M${(graphWindow.size / (graphWindow.windowX * 2)) * xvalue},${(graphWindow.size / (graphWindow.windowY * 2)) * yvalue} \n`;
+        points[j] = {};
 
         for (xvalue = -graphWindow.windowX; xvalue <= graphWindow.windowX; xvalue += 0.01) {
             xvalue = Math.round(xvalue * 100) / 100;
             yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
-            points[j] = {};
             if (equations[j].includes("x")) {
                 if (!isFinite(yvalue)) {
                     while (!isFinite(yvalue) && xvalue <= graphWindow.windowX) {
