@@ -40,9 +40,9 @@ function regenerateGrid() {
     idTree.canvas.innerHTML = idTree.canvas.innerHTML + `<path d="M0,${graphWindow.edge} L0,${-graphWindow.edge}" style="stroke: White; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
 }
 
-function evaluateYValue(value) {
+function evaluateYValue(value, equationIndex) {
     if (!isNaN(value)) {
-        return -Function("return " + equations[j].replace(/x/g, `(${value})`))();
+        return -Function("return " + equations[equationIndex].replace(/x/g, `(${value})`))();
     }
 }
 
@@ -83,12 +83,12 @@ oninput = function () {
         }
 
         xvalue = -graphWindow.windowX;
-        yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
+        yvalue = Math.round(evaluateYValue(xvalue, j) * 100000) / 100000;
 
         if (!isFinite(yvalue)) {
             while (!isFinite(yvalue) && xvalue <= graphWindow.windowX) {
                 xvalue += 0.01;
-                yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
+                yvalue = Math.round(evaluateYValue(xvalue, j) * 100000) / 100000;
             }
         }
 
@@ -97,12 +97,12 @@ oninput = function () {
 
         for (xvalue = -graphWindow.windowX; xvalue <= graphWindow.windowX; xvalue += 0.01) {
             xvalue = Math.round(xvalue * 100) / 100;
-            yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
+            yvalue = Math.round(evaluateYValue(xvalue, j) * 100000) / 100000;
             if (equations[j].includes("x")) {
                 if (!isFinite(yvalue)) {
                     while (!isFinite(yvalue) && xvalue <= graphWindow.windowX) {
                         xvalue += 0.01;
-                        yvalue = Math.round(evaluateYValue(xvalue) * 100000) / 100000;
+                        yvalue = Math.round(evaluateYValue(xvalue, j) * 100000) / 100000;
                     }
                     d += `M${(graphWindow.size / (graphWindow.windowX * 2)) * xvalue},${(graphWindow.size / (graphWindow.windowY * 2)) * yvalue} \n`;
                 } else {
@@ -114,4 +114,9 @@ oninput = function () {
 
         idTree.canvas.innerHTML += `<path id="function" d="${d}" style="stroke: White; fill: none; stroke-width: 3;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})"/>`;
     }
+}
+
+function returnOutput() {
+    let output = evaluateYValue(+idTree.xinput.value, +idTree.equation.value);
+    idTree.outputLabel.innerHTML = `Y: ${output}`;
 }
