@@ -107,7 +107,8 @@ oninput = function () {
                     d += `M${(graphWindow.size / (graphWindow.windowX * 2)) * xvalue},${(graphWindow.size / (graphWindow.windowY * 2)) * yvalue} \n`;
                 } else {
                     d += `L${(graphWindow.size / (graphWindow.windowX * 2)) * xvalue},${(graphWindow.size / (graphWindow.windowY * 2)) * yvalue} \n`;
-                    points[j]["xvalue"] = yvalue;
+                    points[j] = {};
+                    points[j][xvalue] = yvalue;
                 }
             }
         }
