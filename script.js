@@ -112,11 +112,13 @@ oninput = function () {
             }
         }
 
+        returnOutput();
+
         idTree.canvas.innerHTML += `<path id="function" d="${d}" style="stroke: White; fill: none; stroke-width: 3;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})"/>`;
     }
 }
 
 function returnOutput() {
-    let output = evaluateYValue(+idTree.xinput.value, +idTree.equation.value);
+    let output = -evaluateYValue(+idTree.xinput.value, +idTree.equation.value);
     idTree.outputLabel.innerHTML = `Y: ${output}`;
 }
