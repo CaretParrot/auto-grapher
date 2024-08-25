@@ -10,7 +10,20 @@
         <link rel="manifest" href="https://caretparrot.github.io/Auto-Grapher/manifest.json" />
         <style>
             div * {
-                background-color: hsl(0, 0%, 10%);
+                background-color: hsl(240, 20%, 20%);
+                display: grid;
+                grid: auto / auto auto auto auto auto auto auto;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+            }
+
+            body {
+                flex-flow: row nowrap;
+            }
+
+            svg {
+                padding: 0;
             }
         </style>
         <script defer src="https://caretparrot.github.io/My-Libraries/gpl.js"></script>
@@ -18,9 +31,10 @@
         <script defer src="https://caretparrot.github.io/Auto-Grapher/script.js"></script>
     </head>
 
-    <body style="display: flex; align-items: flex-start;">
-        <svg style="padding: 0; flex-grow: initial; max-height: calc(100% - 2vmin); max-width: calc(100% - 2vmin);" id="canvas"></svg>
-        <div style="background-color: transparent; padding: 0; flex-flow: column wrap;">
+    <body>
+        <svg id="canvas"></svg>
+        
+        <div style="background-color: transparent; padding: 0;">
             <textarea id="input"></textarea>
             <input id="windowX" min="1" step="1" value="10" type="number">
             <input id="windowY" min="1" step="1" value="10" type="number">
