@@ -125,5 +125,5 @@ function returnOutput() {
 }
 
 function copyValue() {
-    navigator.clipboard.writeText(idTree.outputLabel.innerHTML);
+    navigator.clipboard.writeText(idTree.outputLabel.innerHTML.slice(2));
 }
