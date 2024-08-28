@@ -121,7 +121,7 @@ oninput = function () {
 
 function returnOutput() {
     let output = -evaluateYValue(+idTree.xinput.value, +idTree.equation.value);
-    idTree.outputLabel.innerHTML = `Y: ${Math.round(output * 10000) / 10000}`;
+    idTree.outputLabel.innerHTML = `Y: ${Math.round(output * 100000) / 100000}`;
 }
 
 function copyValue() {
