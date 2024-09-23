@@ -1,0 +1,30 @@
+div * {
+    background-color: hsl(240, 20%, 20%);
+    display: grid;
+    grid: auto / auto auto auto auto auto auto auto;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+body {
+    flex-flow: row nowrap;
+}
+
+body * {
+    display: flex;
+}
+
+svg {
+    flex: 0 0 auto;
+    padding: 0;
+}
+
+div {
+    flex: 0 0 auto;
+    background-color: transparent; 
+    padding: 0;
+    display: grid;
+    grid: auto / auto auto auto auto;
+}

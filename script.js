@@ -8,36 +8,36 @@ let output;
 let d;
 let j;
 
-idTree.canvas.style.width = `calc(${window.innerHeight / 2}px)`;
-idTree.canvas.style.height = `calc(${window.innerHeight / 2}px)`;
-idTree.screenSize.value = window.innerHeight / 2;
+document.getElementById("canvas").style.width = `calc(${window.innerHeight / 2}px)`;
+document.getElementById("canvas").style.height = `calc(${window.innerHeight / 2}px)`;
+document.getElementById("screenSize").value = window.innerHeight / 2;
 
 let graphWindow = {
-    size: +idTree.screenSize.value,
-    edge: +idTree.screenSize.value / 2,
-    windowX: +idTree.windowX.value,
-    windowY: +idTree.windowY.value
+    size: +document.getElementById("screenSize").value,
+    edge: +document.getElementById("screenSize").value / 2,
+    windowX: +document.getElementById("windowX").value,
+    windowY: +document.getElementById("windowY").value
 }
 
 function regenerateGrid() {
     for (let i = 0; i <= graphWindow.edge; i += (graphWindow.edge) / graphWindow.windowX) {
-        idTree.canvas.innerHTML += `<path d="M${i},${-graphWindow.edge} L${i},${graphWindow.edge}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
+        document.getElementById("canvas").innerHTML += `<path d="M${i},${-graphWindow.edge} L${i},${graphWindow.edge}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
     }
 
     for (let i = 0; i <= graphWindow.edge; i += (graphWindow.edge) / graphWindow.windowY) {
-        idTree.canvas.innerHTML += `<path d="M${-graphWindow.edge},${i} L${graphWindow.edge},${i}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
+        document.getElementById("canvas").innerHTML += `<path d="M${-graphWindow.edge},${i} L${graphWindow.edge},${i}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
     }
 
     for (let i = 0; i >= -graphWindow.edge; i -= (graphWindow.edge) / graphWindow.windowX) {
-        idTree.canvas.innerHTML += `<path d="M${i},${-graphWindow.edge} L${i},${graphWindow.edge}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
+        document.getElementById("canvas").innerHTML += `<path d="M${i},${-graphWindow.edge} L${i},${graphWindow.edge}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
     }
 
     for (let i = 0; i >= -graphWindow.edge; i -= (graphWindow.edge) / graphWindow.windowY) {
-        idTree.canvas.innerHTML += `<path d="M${-graphWindow.edge},${i} L${graphWindow.edge},${i}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
+        document.getElementById("canvas").innerHTML += `<path d="M${-graphWindow.edge},${i} L${graphWindow.edge},${i}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
     }
 
-    idTree.canvas.innerHTML = idTree.canvas.innerHTML + `<path d="M${-graphWindow.edge},0 L${graphWindow.edge},0" style="stroke: White; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
-    idTree.canvas.innerHTML = idTree.canvas.innerHTML + `<path d="M0,${graphWindow.edge} L0,${-graphWindow.edge}" style="stroke: White; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
+    document.getElementById("canvas").innerHTML = document.getElementById("canvas").innerHTML + `<path d="M${-graphWindow.edge},0 L${graphWindow.edge},0" style="stroke: White; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
+    document.getElementById("canvas").innerHTML = document.getElementById("canvas").innerHTML + `<path d="M0,${graphWindow.edge} L0,${-graphWindow.edge}" style="stroke: White; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
 }
 
 function evaluateYValue(value, equationIndex) {
@@ -51,24 +51,24 @@ regenerateGrid();
 oninput = function () {
     d = ``;
         
-    if (idTree.screenSize.value == "" || idTree.windowX.value == "" || idTree.windowY.value == "") {
+    if (document.getElementById("screenSize").value == "" || document.getElementById("windowX").value == "" || document.getElementById("windowY").value == "") {
         return;
     }
 
     graphWindow = {
-        size: +idTree.screenSize.value,
-        edge: +idTree.screenSize.value / 2,
-        windowX: +idTree.windowX.value,
-        windowY: +idTree.windowY.value
+        size: +document.getElementById("screenSize").value,
+        edge: +document.getElementById("screenSize").value / 2,
+        windowX: +document.getElementById("windowX").value,
+        windowY: +document.getElementById("windowY").value
     }
 
-    idTree.canvas.style.width = graphWindow.size + "px";
-    idTree.canvas.style.height = graphWindow.size + "px";
+    document.getElementById("canvas").style.width = graphWindow.size + "px";
+    document.getElementById("canvas").style.height = graphWindow.size + "px";
 
-    equations = idTree.input.value.split("\n");
-    idTree.equation.max = equations.length - 1;
+    equations = document.getElementById("input").value.split("\n");
+    document.getElementById("equation").max = equations.length - 1;
 
-    idTree.canvas.innerHTML = "";
+    document.getElementById("canvas").innerHTML = "";
 
     regenerateGrid();
 
@@ -115,15 +115,15 @@ oninput = function () {
 
         returnOutput();
 
-        idTree.canvas.innerHTML += `<path id="function" d="${d}" style="stroke: White; fill: none; stroke-width: 3;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})"/>`;
+        document.getElementById("canvas").innerHTML += `<path id="function" d="${d}" style="stroke: White; fill: none; stroke-width: 3;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})"/>`;
     }
 }
 
 function returnOutput() {
-    let output = -evaluateYValue(+idTree.xinput.value, +idTree.equation.value);
-    idTree.outputLabel.innerHTML = `Y: ${Math.round(output * 100000) / 100000}`;
+    let output = -evaluateYValue(+document.getElementById("xinput").value, +document.getElementById("equation").value);
+    document.getElementById("outputLabel").innerHTML = `Y: ${Math.round(output * 100000) / 100000}`;
 }
 
 function copyValue() {
-    navigator.clipboard.writeText(idTree.outputLabel.innerHTML.slice(2));
+    navigator.clipboard.writeText(document.getElementById("outputLabel").innerHTML.slice(2));
 }
