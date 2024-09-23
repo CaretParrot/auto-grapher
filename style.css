@@ -16,7 +16,7 @@ body * {
 }
 
 svg {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     padding: 0;
 }
 
