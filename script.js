@@ -127,3 +127,7 @@ function returnOutput() {
 function copyValue() {
     navigator.clipboard.writeText(document.getElementById("outputLabel").innerHTML.slice(2));
 }
+
+function copyFunctions() {
+    navigator.clipboard.writeText(document.getElementById("input").value);
+}
