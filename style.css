@@ -1,7 +1,5 @@
 div * {
     background-color: hsl(240, 20%, 20%);
-    display: grid;
-    grid: auto / auto auto auto auto auto auto auto;
     justify-content: center;
     align-content: center;
     align-items: center;
@@ -10,6 +8,7 @@ div * {
 
 body {
     flex-flow: row nowrap;
+    display: flex;
 }
 
 body * {
@@ -17,12 +16,12 @@ body * {
 }
 
 svg {
-    flex: 0 0 auto;
+    flex: 1 1 auto;
     padding: 0;
 }
 
 div {
-    flex: 0 0 auto;
+    flex: 1 1 auto;
     background-color: transparent; 
     padding: 0;
     display: grid;
