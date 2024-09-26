@@ -7,6 +7,7 @@ let points = [];
 let output;
 let d;
 let j;
+const caretReplacement = new RegExp("^", "g");
 
 document.getElementById("canvas").style.width = `calc(${window.innerHeight / 2}px)`;
 document.getElementById("canvas").style.height = `calc(${window.innerHeight / 2}px)`;
@@ -41,14 +42,22 @@ function regenerateGrid() {
 }
 
 function evaluateYValue(value, equationIndex) {
-    if (!isNaN(value)) {
-        return -Function("return " + equations[equationIndex].replace(/x/g, `(${value})`))();
+    try {
+        if (!isNaN(value)) {
+            return -Function("return " + equations[equationIndex].replace(caretReplacement, "**").replace(/x/g, `(${value})`))();
+        } else {
+            throw "Not a number."
+        }
+    }
+    catch (err) {
+        console.log(err);
     }
 }
 
 regenerateGrid();
 
 oninput = function () {
+
     d = ``;
         
     if (document.getElementById("screenSize").value == "" || document.getElementById("windowX").value == "" || document.getElementById("windowY").value == "") {
@@ -64,7 +73,6 @@ oninput = function () {
 
     document.getElementById("canvas").style.width = graphWindow.size + "px";
     document.getElementById("canvas").style.height = graphWindow.size + "px";
-
     equations = document.getElementById("input").value.split("\n");
     document.getElementById("equation").max = equations.length - 1;
 

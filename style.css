@@ -1,9 +1,15 @@
 div * {
-    background-color: hsl(240, 20%, 20%);
     justify-content: center;
     align-content: center;
     align-items: center;
     text-align: center;
+}
+
+textarea {
+    justify-content: center;
+        align-content: center;
+        align-items: center;
+        text-align: center;
 }
 
 body {
@@ -26,4 +32,10 @@ div {
     padding: 0;
     display: grid;
     grid: auto / auto auto auto auto;
+}
+
+#input {
+    background-color: hsl(240, 10%, 10%);
+    padding: 1rem;
+    margin: 1rem;
 }
