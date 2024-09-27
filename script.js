@@ -44,7 +44,7 @@ function regenerateGrid() {
 function evaluateYValue(value, equationIndex) {
     try {
         if (!isNaN(value)) {
-            return -Function("return " + equations[equationIndex].replace(caretReplacement, "**").replace(/x/g, `(${value})`))();
+            return -Function("return " + equations[equationIndex].replace(/x/g, `(${value})`))();
         } else {
             throw "Not a number."
         }
