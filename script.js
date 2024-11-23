@@ -1,5 +1,3 @@
-setupTree();
-
 let xvalue;
 let yvalue;
 let equations = [];
@@ -9,8 +7,6 @@ let d;
 let j;
 const caretReplacement = new RegExp("^", "g");
 
-document.getElementById("canvas").style.width = `calc(${window.innerHeight / 2}px)`;
-document.getElementById("canvas").style.height = `calc(${window.innerHeight / 2}px)`;
 document.getElementById("screenSize").value = window.innerHeight / 2;
 
 let graphWindow = {
@@ -18,6 +14,11 @@ let graphWindow = {
     edge: +document.getElementById("screenSize").value / 2,
     windowX: +document.getElementById("windowX").value,
     windowY: +document.getElementById("windowY").value
+}
+
+onresize = function (event) {
+    document.getElementById("canvas").style.width = document.getElementById("screenSize").value + "px";
+    document.getElementById("canvas").style.height = document.getElementById("screenSize").value + "px";
 }
 
 function regenerateGrid() {
@@ -57,7 +58,6 @@ function evaluateYValue(value, equationIndex) {
 regenerateGrid();
 
 oninput = function () {
-
     d = ``;
         
     if (document.getElementById("screenSize").value == "" || document.getElementById("windowX").value == "" || document.getElementById("windowY").value == "") {
