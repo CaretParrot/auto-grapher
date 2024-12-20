@@ -16,7 +16,11 @@ let graphWindow = {
     windowY: +document.getElementById("windowY").value
 }
 
-onresize = function (event) {
+
+document.getElementById("canvas").style.width = document.getElementById("screenSize").value + "px";
+document.getElementById("canvas").style.height = document.getElementById("screenSize").value + "px";
+
+document.body.onresize = function (event) {
     document.getElementById("canvas").style.width = document.getElementById("screenSize").value + "px";
     document.getElementById("canvas").style.height = document.getElementById("screenSize").value + "px";
 }
