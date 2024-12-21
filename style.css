@@ -1,9 +1,15 @@
-textarea {
+textarea, svg, input, button {
     justify-content: center;
     align-content: center;
     align-items: center;
     text-align: center;
+    width: calc(100% - 2rem);
+    
+}
 
+html {
+    width: 100%;
+    height: 100%;
 }
 
 body {
@@ -12,10 +18,12 @@ body {
     height: 100%;
 }
 
+textarea, input, button {
+    color: light-dark(var(--dark-2), var(--light-2)) !important;
+    background-color: light-dark(var(--light-2), var(--dark-2)) !important;
+}
+
 svg {
-    display: flex;
-    flex: 1 1 auto;
+    aspect-ratio: 1 / 1 !important;
     padding: 0;
-    align-self: center;
-    width: 100%;
 }
