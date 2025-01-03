@@ -63,7 +63,7 @@ regenerateGrid();
 
 oninput = function () {
     d = ``;
-        
+
     if (document.getElementById("screenSize").value == "" || document.getElementById("windowX").value == "" || document.getElementById("windowY").value == "") {
         return;
     }
