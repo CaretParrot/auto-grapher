@@ -14,15 +14,8 @@
         <script defer src="./script.js"></script>
     </head>
     <body>
-        <svg id="canvas" class="noPaint"></svg>
-        <textarea id="input" title="Input your functions here."></textarea>
-        <input title="Adjust the domain of the display window." id="windowX" min="1" step="1" value="10" type="number">
-        <input title="Adjust the range of the display window." id="windowY" min="1" step="1" value="10" type="number">
-        <input title="Change the size of the display window." id="screenSize" min="100" step="10" value="10" type="number">
-        <input title="Input an x value to find the output." id="xinput" value="0" type="number">
-        <input title="Change the function that the x-value is plugged into." id="equation" min="0" type="number" value="0" step="1">
-        <button title="The output of the x-value." id="outputLabel" onclick="copyValue()">Y: </button>
-        <button title="Copy all of your functions." id="exportButton" onclick="copyFunctions()">Copy Functions</button>
+        <canvas id="graph" width="500" height="500"></canvas>
+        <textarea id="input"></textarea>
     </body>
 
 </html>
