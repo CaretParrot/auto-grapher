@@ -1,11 +1,32 @@
 body {
-    grid: auto / 1fr 1fr;
+    grid: auto / 1fr 1fr 1fr;
 }
 
 textarea {
     resize: none;
 }
 
+@media (orientation: portrait) {
+    body {
+        grid: auto / auto;
+    }
+}
+
 canvas {
     padding: 0;
+}
+
+#wrapper {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    display: grid;
+    grid: auto / 1fr 1fr;
+}
+
+label {
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
