@@ -43,10 +43,8 @@ function drawGrid() {
 }
 
 oninput = function (event) {
-    lines = document.getElementById("input").value.split("\n");
-    equations = [];
-    domain = document.getElementById("domain").value;
-    range = document.getElementById("range").value;
+    domain = document.getElementById("domain").value || 10;
+    range = document.getElementById("range").value || 10;
     drawGraph();
 }
 
@@ -56,28 +54,36 @@ function drawGraph() {
     points = [];
     drawGrid();
 
+    lines = document.getElementById("input").value.split("\n");
+    equations = [];
+
+    for (let i = 0; i < lines.length; i++) {
+        if (lines[i] !== "") {
+            equations.push(new mathPlus.MathFunction(lines[i], "x"));
+        }
+    }
+
     paint.beginPath();
     paint.strokeStyle = "white";
     paint.lineWidth = 3;
 
-    for (let i = 0; i < lines.length; i++) {
-        equations.push(new mathPlus.MathFunction(lines[i], "x"));
-    }
-
     for (let i = 0; i < equations.length; i++) {
         try {
-            paint.moveTo(-canvas.width / 2, -equations[i].evaluate(-canvas.width / 2) * canvas.width / domain / 2);
+            let xVal = Math.round(-domain * 100) / 100;
+            let yVal = -equations[i].evaluate(xVal);
+            paint.lineTo(xVal * canvas.width / domain / 2, yVal * canvas.height / range / 2);
 
-            for (let xVal = -domain; xVal <= domain; xVal += 0.01) {
+            for (xVal = -domain; xVal <= domain; xVal += 0.01) {
                 xVal = Math.round(xVal * 100) / 100;
-                let adjustedXVal = Math.round(xVal * canvas.width / domain / 2 * 100) / 100;
-                if (isFinite(-equations[i].evaluate(adjustedXVal))) {
-                    paint.lineTo(adjustedXVal, -equations[i].evaluate(xVal) * canvas.width / domain / 2);
-                    points.push([adjustedXVal, -equations[i].evaluate(adjustedXVal)]);
+                yVal = -equations[i].evaluate(xVal);
+                if (isFinite(-equations[i].evaluate(xVal))) {
+                    paint.lineTo(xVal * canvas.width / domain / 2, yVal * canvas.height / range / 2);
+                    points.push([xVal * canvas.width / domain / 2, yVal]);
                 } else {
                     paint.stroke();
                 }
             }
+
             paint.stroke();
         } catch (error) {
             console.log(`Error: ${error}`);
@@ -91,10 +97,4 @@ function copyValue() {
 
 function copyFunctions() {
     navigator.clipboard.writeText(document.getElementById("input").value);
-}
-
-onkeydown = function (event) {
-    if (event.key === "Enter") {
-        console.log(points);
-    }
 }
