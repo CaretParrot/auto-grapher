@@ -1,143 +1,101 @@
-let xvalue;
-let yvalue;
+let lines = [];
 let equations = [];
 let points = [];
 let output;
 let d;
 let j;
-const caretReplacement = new RegExp("^", "g");
+let canvas = document.getElementById("graph");
+let paint = canvas.getContext("2d");
+let domain = 10;
+let range = 10;
 
-document.getElementById("screenSize").value = window.innerHeight / 2;
+window.onload = function () {
+    paint.translate(canvas.width / 2, canvas.height / 2);
+    drawGrid();
+};
 
-let graphWindow = {
-    size: +document.getElementById("screenSize").value,
-    edge: +document.getElementById("screenSize").value / 2,
-    windowX: +document.getElementById("windowX").value,
-    windowY: +document.getElementById("windowY").value
+function drawGrid() {
+    paint.beginPath();
+    paint.lineWidth = 1;
+
+    paint.strokeStyle = "gray";
+
+    for (let i = -canvas.height / 2; i <= canvas.height / 2; i += canvas.width / (range * 2)) {
+        paint.moveTo(-canvas.width / 2, i);
+        paint.lineTo(canvas.width / 2, i);
+    }
+
+    for (let i = -canvas.width / 2; i <= canvas.width / 2; i += canvas.height / (domain * 2)) {
+        paint.moveTo(i, -canvas.height / 2);
+        paint.lineTo(i, canvas.height / 2);
+    }
+
+    paint.stroke();
+    paint.beginPath();
+
+    paint.strokeStyle = "white";
+
+    paint.moveTo(-canvas.width / 2, 0);
+    paint.lineTo(canvas.width / 2, 0);
+    paint.moveTo(0, -canvas.height / 2);
+    paint.lineTo(0, canvas.height / 2);
+
+    paint.stroke();
 }
 
+oninput = function (event) {
+    domain = document.getElementById("domain").value || 10;
+    range = document.getElementById("range").value || 10;
+    drawGraph();
 
-document.getElementById("canvas").style.width = document.getElementById("screenSize").value + "px";
-document.getElementById("canvas").style.height = document.getElementById("screenSize").value + "px";
+    document.getElementById("functionSelect").max = lines.length - 1;
 
-document.body.onresize = function (event) {
-    document.getElementById("canvas").style.width = document.getElementById("screenSize").value + "px";
-    document.getElementById("canvas").style.height = document.getElementById("screenSize").value + "px";
+    document.getElementById("xInput").min = -domain;
+    document.getElementById("xInput").max = domain;
+    document.getElementById("xLabel").innerHTML = `(${+document.getElementById("xInput").value}, ${equations[+document.getElementById("functionSelect").value].evaluate(+document.getElementById("xInput").value)})`;
 }
 
-function regenerateGrid() {
-    for (let i = 0; i <= graphWindow.edge; i += (graphWindow.edge) / graphWindow.windowX) {
-        document.getElementById("canvas").innerHTML += `<path d="M${i},${-graphWindow.edge} L${i},${graphWindow.edge}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
-    }
+function drawGraph() {
+    paint.clearRect(-canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
 
-    for (let i = 0; i <= graphWindow.edge; i += (graphWindow.edge) / graphWindow.windowY) {
-        document.getElementById("canvas").innerHTML += `<path d="M${-graphWindow.edge},${i} L${graphWindow.edge},${i}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
-    }
+    points = [];
+    drawGrid();
 
-    for (let i = 0; i >= -graphWindow.edge; i -= (graphWindow.edge) / graphWindow.windowX) {
-        document.getElementById("canvas").innerHTML += `<path d="M${i},${-graphWindow.edge} L${i},${graphWindow.edge}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
-    }
+    lines = document.getElementById("input").value.split("\n");
+    equations = [];
 
-    for (let i = 0; i >= -graphWindow.edge; i -= (graphWindow.edge) / graphWindow.windowY) {
-        document.getElementById("canvas").innerHTML += `<path d="M${-graphWindow.edge},${i} L${graphWindow.edge},${i}" style="stroke: #808080; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
-    }
-
-    document.getElementById("canvas").innerHTML = document.getElementById("canvas").innerHTML + `<path d="M${-graphWindow.edge},0 L${graphWindow.edge},0" style="stroke: White; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
-    document.getElementById("canvas").innerHTML = document.getElementById("canvas").innerHTML + `<path d="M0,${graphWindow.edge} L0,${-graphWindow.edge}" style="stroke: White; fill: none; stroke-width: 1;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})" />`;
-}
-
-function evaluateYValue(value, equationIndex) {
-    try {
-        if (!isNaN(value)) {
-            return -Function("return " + equations[equationIndex].replace(/x/g, `(${value})`))();
-        } else {
-            throw "Not a number."
+    for (let i = 0; i < lines.length; i++) {
+        if (lines[i] !== "") {
+            equations.push(new mathPlus.MathFunction(lines[i], "x"));
         }
     }
-    catch (err) {
-        console.log(err);
-    }
-}
 
-regenerateGrid();
+    paint.beginPath();
+    paint.strokeStyle = "white";
+    paint.lineWidth = 3;
 
-oninput = function () {
-    d = ``;
+    for (let i = 0; i < equations.length; i++) {
+        try {
+            let xVal = Math.round(-domain * 100) / 100;
+            let yVal = -equations[i].evaluate(xVal);
+            paint.moveTo(xVal * canvas.width / domain / 2, yVal * canvas.height / range / 2);
 
-    if (document.getElementById("screenSize").value == "" || document.getElementById("windowX").value == "" || document.getElementById("windowY").value == "") {
-        return;
-    }
-
-    graphWindow = {
-        size: +document.getElementById("screenSize").value,
-        edge: +document.getElementById("screenSize").value / 2,
-        windowX: +document.getElementById("windowX").value,
-        windowY: +document.getElementById("windowY").value
-    }
-
-    document.getElementById("canvas").style.width = graphWindow.size + "px";
-    document.getElementById("canvas").style.height = graphWindow.size + "px";
-    equations = document.getElementById("input").value.split("\n");
-    document.getElementById("equation").max = equations.length - 1;
-
-    document.getElementById("canvas").innerHTML = "";
-
-    regenerateGrid();
-
-    for (j = 0; j < equations.length; j++) {
-        equations[j] = equations[j].replace(/ /g, "");
-
-        if (equations[j] === "") {
-            break;
-        }
-
-        if (equations[j].includes("let")) {
-            break;
-        }
-
-        xvalue = -graphWindow.windowX;
-        yvalue = Math.round(evaluateYValue(xvalue, j) * 100000) / 100000;
-
-        if (!isFinite(yvalue)) {
-            while (!isFinite(yvalue) && xvalue <= graphWindow.windowX) {
-                xvalue += 0.01;
-                yvalue = Math.round(evaluateYValue(xvalue, j) * 100000) / 100000;
-            }
-        }
-
-        d += `M${(graphWindow.size / (graphWindow.windowX * 2)) * xvalue},${(graphWindow.size / (graphWindow.windowY * 2)) * yvalue} \n`;
-        points[j] = {};
-
-        for (xvalue = -graphWindow.windowX; xvalue <= graphWindow.windowX; xvalue += 0.01) {
-            xvalue = Math.round(xvalue * 100) / 100;
-            yvalue = Math.round(evaluateYValue(xvalue, j) * 100000) / 100000;
-            if (equations[j].includes("x")) {
-                if (!isFinite(yvalue)) {
-                    while (!isFinite(yvalue) && xvalue <= graphWindow.windowX) {
-                        xvalue += 0.01;
-                        yvalue = Math.round(evaluateYValue(xvalue, j) * 100000) / 100000;
-                    }
-                    d += `M${(graphWindow.size / (graphWindow.windowX * 2)) * xvalue},${(graphWindow.size / (graphWindow.windowY * 2)) * yvalue} \n`;
+            for (xVal = -domain; xVal <= domain; xVal += 0.01) {
+                xVal = Math.round(xVal * 100) / 100;
+                yVal = -equations[i].evaluate(xVal);
+                if (isFinite(-equations[i].evaluate(xVal))) {
+                    paint.lineTo(xVal * canvas.width / domain / 2, yVal * canvas.height / range / 2);
+                    points.push([xVal * canvas.width / domain / 2, yVal]);
                 } else {
-                    d += `L${(graphWindow.size / (graphWindow.windowX * 2)) * xvalue},${(graphWindow.size / (graphWindow.windowY * 2)) * yvalue} \n`;
-                    points[j][xvalue] = yvalue;
+                    paint.stroke();
                 }
             }
+
+            paint.stroke();
+        } catch (error) {
+            console.log(`Error: ${error}`);
         }
-
-        returnOutput();
-
-        document.getElementById("canvas").innerHTML += `<path id="function" d="${d}" style="stroke: White; fill: none; stroke-width: 3;" transform="translate(${graphWindow.edge}, ${graphWindow.edge})"/>`;
     }
-}
-
-function returnOutput() {
-    let output = -evaluateYValue(+document.getElementById("xinput").value, +document.getElementById("equation").value);
-    document.getElementById("outputLabel").innerHTML = `Y: ${Math.round(output * 100000) / 100000}`;
-}
-
-function copyValue() {
-    navigator.clipboard.writeText(document.getElementById("outputLabel").innerHTML.slice(2));
 }
 
 function copyFunctions() {
