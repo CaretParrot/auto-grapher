@@ -1,7 +1,7 @@
 {
     "name": "Auto Grapher",
     "short_name": "Auto Grapher",
-    "start_url": "/Auto-Grapher",
+    "start_url": "/auto-grapher",
     "icons": [
         {
             "src": "https://caretparrot.github.io/My-Libraries/Profile%20Picture.png",
