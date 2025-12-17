@@ -8,6 +8,11 @@ let output;
 let d;
 let j;
 
+/**
+ * @type {number}
+ */
+const ROUNDING = 2;
+
 let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("graph"));
 let paint = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d"));
 let domain = /** @type {HTMLInputElement} */ (document.getElementById("domain"));
@@ -50,10 +55,32 @@ function drawGrid() {
     paint.stroke();
 }
 
-oninput = function (event) {
+input.oninput = function () {
     drawGraph();
+    refresh();
+}
+
+domain.oninput = function () {
+    drawGraph();
+    refresh();
+}
+
+range.oninput = function () {
+    drawGraph();
+    refresh();
+}
+
+xInput.oninput = function () {
+    refresh();
+}
+
+functionSelect.oninput = function () {
+    refresh();
+}
+
+function refresh() {
     functionSelect.max = (lines.length - 1).toString();
-    xInput.min =(-domain.value).toString();
+    xInput.min = (-domain.value).toString();
     xInput.max = domain.value;
     xLabel.innerHTML = `(${+xInput.value}, ${equations[+functionSelect.value].evaluate(+xInput.value)})`;
 }
@@ -80,12 +107,12 @@ function drawGraph() {
 
     for (let i = 0; i < equations.length; i++) {
         try {
-            let xVal = Math.round(-domain * 100) / 100;
+            let xVal = roundToPlaces(-domain.value, ROUNDING);
             let yVal = -equations[i].evaluate(xVal);
             paint.moveTo(xVal * canvas.width / +domain.value / 2, yVal * canvas.height / +range.value / 2);
 
-            for (xVal = -domain; xVal <= +domain.value; xVal += 0.01) {
-                xVal = Math.round(xVal * 100) / 100;
+            for (xVal = -domain.value; xVal <= +domain.value; xVal += 0.01) {
+                xVal = roundToPlaces(xVal, ROUNDING);
                 yVal = -equations[i].evaluate(xVal);
                 if (isFinite(-equations[i].evaluate(xVal))) {
                     paint.lineTo(xVal * canvas.width / +domain.value / 2, yVal * canvas.height / +range.value / 2);
@@ -100,6 +127,16 @@ function drawGraph() {
             console.log(`Error: ${error}`);
         }
     }
+}
+
+/**
+ * 
+ * @param {number} number 
+ * @param {number} numberOfPlaces 
+ * @returns 
+ */
+function roundToPlaces(number, numberOfPlaces) {
+    return Math.round(number * (10 ** numberOfPlaces)) / (10 ** numberOfPlaces);
 }
 
 function copyFunctions() {
